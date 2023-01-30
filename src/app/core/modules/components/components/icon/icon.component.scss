@@ -1,0 +1,15 @@
+@import "variables.scss";
+
+:host {
+  line-height: 0;
+
+  i {
+    font-size: inherit;
+    font-weight: inherit;
+    transition: inherit;
+    user-select: none;
+    height: inherit;
+    width: inherit;
+    transition: color $g-anime;
+  }
+}

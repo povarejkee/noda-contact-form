@@ -1,0 +1,15 @@
+@import "../../scss/form.mixins.scss";
+@import "../../scss/form.variables.scss";
+@import "variables.scss";
+
+:host {
+  @include form-field;
+}
+
+.option {
+  transition: background-color $g-anime;
+
+  &.active {
+    background-color: rgb(211 200 241 / 30%) !important;
+  }
+}

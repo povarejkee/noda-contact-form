@@ -1,0 +1,48 @@
+<div
+  class="form-control"
+  data-type="panel"
+  [class.opened]="isShowPanel"
+  [class.disabled-events]="isDisabled"
+  (click)="togglePanel()"
+>
+  <div
+    class="header"
+    [class.opened]="isShowPanel"
+    [class.inactive]="value | notDefined"
+  >
+    <ng-container *ngIf="customTemplate; else defaultTemplate">
+      <ng-container
+        *ngTemplateOutlet="
+          customTemplate;
+          context: { $implicit: getOption(value) }
+        "
+      ></ng-container>
+    </ng-container>
+
+    <ng-template #defaultTemplate>
+      <span class="value">{{ getValue() | symbollimit: 14 }}</span>
+    </ng-template>
+    <ng-spinner *ngIf="loading" [diameter]="20"></ng-spinner>
+    <span class="material-icons expand-icon">arrow_drop_down</span>
+  </div>
+
+  <ul class="options" *ngIf="isShowPanel">
+    <li
+      class="option"
+      *ngFor="let option of options; trackBy: trackByFn"
+      [class.disabled-events]="disabled"
+      [class.active]="option[bindValue] === value"
+      (click)="setValue(option[bindValue])"
+    >
+      <ng-container *ngIf="customTemplate; else defaultTemplate">
+        <ng-container
+          *ngTemplateOutlet="customTemplate; context: { $implicit: option }"
+        ></ng-container>
+      </ng-container>
+
+      <ng-template #defaultTemplate>
+        <span class="option-title fz-14">{{ option[bindTitle] }}</span>
+      </ng-template>
+    </li>
+  </ul>
+</div>

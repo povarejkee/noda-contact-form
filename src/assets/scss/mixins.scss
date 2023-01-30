@@ -1,0 +1,11 @@
+@mixin mobile($mw: 500px) {
+  @media (max-width: $mw) {
+    @content;
+  }
+}
+
+@mixin for-safari {
+  @media not all and (min-resolution: 0.001dpcm) {
+    @content;
+  }
+}

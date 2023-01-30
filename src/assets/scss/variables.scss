@@ -1,0 +1,56 @@
+$mainFont: "Poppins", Helvetica, Arial, sans-serif;
+$max-z-index: 1000;
+
+// Size
+$mainFontSize: 16px;
+$mainFontWeight: 400;
+$mainLineHeight: 1.5;
+
+// Colors
+$theme-gradient: linear-gradient(80.02deg, #6936d3 0.01%, #f16f6f 99.99%);
+$baseWeak: #ffffff;
+$whiteLilac: #f7f9fc;
+$pickledBluewood: #29304d;
+$mercury: #e5e5e5;
+$purpleHeart: #6936d3;
+$cadetBlue: #a5aabe;
+$gentleBlue: #ced1dd;
+$disabledFont: $cadetBlue;
+$disabledBorder: $cadetBlue;
+$athensGray: #ebecee;
+$errorColor: #f97777;
+$solitude: #e8eaf3;
+$darkGray: #000000de;
+$labelColor: #00000061;
+$shadowFont: #707797;
+$theme-gradient: linear-gradient(180.02deg, #6936d3 0.01%, #f16f6f 99.99%);
+
+$primary-color: $purpleHeart;
+$success-color: #03af48;
+$warning-color: #ff8f27;
+$error-color: #eb001b;
+$default-color: #525870;
+
+$statuses-bg-colors: (
+  success: #03af48,
+  warning: #ff8f27,
+  error: #eb001b,
+  default: #e7eaee,
+  primary: $purpleHeart,
+);
+
+//global anime
+$g-anime: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+//global shadow
+$g-shadow: 0px 12px 24px rgba(0, 0, 0, 0.06);
+$g-shadow-app: 0 10px 20px rgb(0 0 0 / 25%);
+
+//--------------------------------
+// Global breakpoints
+//--------------------------------
+$breakpoint-xsmall: 576px !default; // Phone landscape
+$breakpoint-small: 767px !default; // Phone landscape
+$breakpoint-medium: 992px !default; // Tablet Landscape
+$breakpoint-large: 1440px !default; // Desktop
+$breakpoint-xlarge: 1920px !default; // Large Screens

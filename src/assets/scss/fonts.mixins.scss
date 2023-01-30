@@ -1,0 +1,29 @@
+@import "variables.scss";
+
+@mixin font(
+  $fz: $mainFontSize,
+  $color: $pickledBluewood,
+  $fw: $mainFontWeight,
+  $style: normal
+) {
+  font-family: $mainFont;
+  font-size: $fz;
+  font-weight: $fw;
+  color: $color;
+  line-height: $mainLineHeight;
+  font-style: $style;
+}
+
+@mixin font-bold-title($fz: 18px, $color: $pickledBluewood) {
+  @include font($fz, $color, 700);
+}
+
+@mixin font-description($fz: 15px) {
+  @include font($fz, $cadetBlue, 400);
+}
+
+@mixin gradient-font($color: $theme-gradient) {
+  background-image: $color;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,6 @@
+@import "../../scss/form.mixins.scss";
+@import "variables.scss";
+
+:host {
+  @include form-field;
+}

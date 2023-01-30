@@ -1,0 +1,16 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+[data-mode="fixed"] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .mat-mdc-progress-spinner circle {
+  stroke: $whiteLilac !important;
+}

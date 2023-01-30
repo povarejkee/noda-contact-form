@@ -1,0 +1,63 @@
+@import "../../scss/form.mixins.scss";
+@import "variables.scss";
+
+:host {
+  @include form-field;
+
+  .control-box {
+    position: relative;
+  }
+
+  .input-wrapper {
+    display: flex;
+  }
+
+  .input {
+    @include control-value;
+  }
+}
+
+input {
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $baseWeak inset;
+  }
+
+  &[disabled] {
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px $mercury inset;
+    }
+  }
+}
+
+.form-autocomplete-options {
+  width: 100%;
+  max-height: 240px;
+  background-color: white;
+  border-radius: 3px;
+  overflow-y: auto;
+  box-shadow: 0 4px 16px #0003;
+  box-sizing: border-box;
+  list-style: none;
+  padding: 0;
+
+  &-item {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 16px;
+    transition: background-color $g-anime;
+
+    &.active,
+    &:hover {
+      background-color: $whiteLilac;
+
+      .ndb-form-autocomplete-options-item-tags-tag {
+        background-color: white;
+      }
+    }
+
+    &-title {
+      @include font($fz: 15px, $fw: 600);
+    }
+  }
+}

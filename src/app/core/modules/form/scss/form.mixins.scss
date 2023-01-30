@@ -1,0 +1,116 @@
+@import "fonts.mixins";
+@import "variables";
+@import "animations";
+@import "./form.variables";
+
+@mixin form-field {
+  .control-wrapper {
+    margin-bottom: 5px;
+  }
+
+  .control-label {
+    display: block;
+    margin-bottom: 8px;
+
+    &[data-required="true"]:after {
+      content: " *";
+    }
+  }
+
+
+  .form-autocomplete ::ng-deep .mat-mdc-text-field-wrapper {
+    padding-left: 0 !important;
+  }
+
+  .form-control {
+    width: 100%;
+    font-family: $mainFont;
+
+    ::ng-deep {
+      .mat-mdc-text-field-wrapper {
+        background-color: $baseWeak !important;
+        --mat-mdc-form-field-label-offset-x: -5px !important;
+
+        &:focus-within {
+          .mdc-notched-outline__leading,
+          .mdc-notched-outline__notch,
+          .mdc-notched-outline__trailing {
+            border-color: $purpleHeart !important;
+          }
+
+          .mdc-notched-outline__notch {
+            border-top: 2px solid $purpleHeart !important;
+          }
+
+          .mdc-floating-label--float-above {
+            color: $purpleHeart !important;
+            top: 35px !important;
+          }
+        }
+
+        input,
+        textarea {
+          padding: 0 10px !important;
+        }
+      }
+
+      .mdc-text-field--invalid {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+          border-color: $error-color !important;
+          border-width: 2px;
+        }
+
+        .mdc-notched-outline__notch {
+          border-top: 2px solid $error-color !important;
+        }
+
+        .mdc-floating-label {
+          color: $error-color !important;
+        }
+      }
+
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: $cadetBlue !important;
+      }
+
+      .mdc-notched-outline {
+        box-shadow: 0 10px 20px rgb(41 48 77 / 5%);
+      }
+
+      .mdc-floating-label {
+        color: $labelColor !important;
+        font-family: "Poppins", Helvetica, Arial, sans-serif;
+      }
+
+      .mdc-floating-label--float-above {
+        top: 37px !important;
+        left: 2px !important;
+      }
+
+      .mat-mdc-form-field-infix {
+        padding-top: 20px !important;
+      }
+
+      .mat-mdc-form-field-error-wrapper {
+        padding: 0 !important;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@mixin control-label {
+  @include font(15px, $labelColor, 500);
+}
+
+@mixin control-placeholder {
+  @include font(15px, $labelColor, 400);
+}
+
+@mixin control-value {
+  @include font(15px, $pickledBluewood, 400);
+}

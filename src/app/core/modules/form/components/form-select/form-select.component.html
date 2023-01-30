@@ -1,0 +1,66 @@
+<div class="control-wrapper">
+  <span class="control-label" [attr.data-required]="required">{{ label }}</span>
+  <mat-form-field
+    class="form-control form-select"
+    [appearance]="appearance"
+    [class.disabled]="disabled || loading"
+    [class.invalid-control]="errorMatcher.isErrorState()"
+    [class.errors]="errors?.length | boolean"
+    [attr.data-mode]="mode"
+  >
+    <mat-select
+      [attr.data-locator]="locator || formControlName"
+      [placeholder]="placeholder"
+      [required]="required"
+      [disabled]="disabled || !options?.length | boolean"
+      [errorStateMatcher]="errorMatcher"
+      [ngModel]="value"
+      (ngModelChange)="setValue($event)"
+    >
+      <mat-select-trigger *ngIf="triggerTpl && activeOpt">
+        <ng-container
+          *ngTemplateOutlet="triggerTpl; context: { $implicit: activeOpt }"
+        ></ng-container>
+      </mat-select-trigger>
+
+      <mat-option [value]="null" *ngIf="isShowEmptyOption">None</mat-option>
+      <mat-option
+        class="option"
+        *ngFor="let opt of options; trackBy: trackByFn"
+        [value]="opt.value"
+        [class.active]="activeOptionCb(opt)"
+        [disabled]="isDisabledOption(opt)"
+      >
+        <ng-container
+          *ngTemplateOutlet="
+          optionTpl || defaultOptionTpl;
+          context: { $implicit: opt }
+        "
+        ></ng-container>
+      </mat-option>
+
+      <ng-template #defaultOptionTpl let-option>
+      <span class="option-title font" [class.fz-12]="mode | equal : 'table'">{{
+        option.title
+        }}</span>
+      </ng-template>
+    </mat-select>
+    <ng-spinner
+      *ngIf="loading"
+      @ANShowSpinner
+      matSuffix
+      [diameter]="20"
+    ></ng-spinner>
+    <ng-icon
+      *ngIf="isShowResetIcon"
+      @ANShowResetIcon
+      matSuffix
+      class="reset-icon"
+      icon="close"
+      (click)="resetValue($event)"
+    ></ng-icon>
+    <mat-error *ngFor="let errorMessage of getErrorsMessages()">
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+</div>

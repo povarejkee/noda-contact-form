@@ -1,0 +1,96 @@
+<div class="control-box control-wrapper" [attr.data-autocomplete]="id" #controlBoxRef>
+  <span class="control-label" [attr.data-required]="required">{{ label }}</span>
+  <mat-form-field
+    class="form-control form-autocomplete"
+    [class.active-label]="activeLabel"
+    [class.disabled]="disabled || readonly"
+    [class.invalid-control]="errorMatcher.isErrorState()"
+    [attr.data-mode]="mode"
+    [class.errors]="errors?.length | boolean"
+    [appearance]="appearance"
+    cdkOverlayOrigin
+    #cdkOverlayOriginRef="cdkOverlayOrigin"
+  >
+    <div class="input-wrapper">
+      <ng-container *ngIf="prefixTpl && inputValue">
+        <ng-container
+          matPrefix
+          *ngTemplateOutlet="prefixTpl; context: { $implicit: value }"
+        >
+        </ng-container>
+      </ng-container>
+
+      <input
+        matInput
+        #inputRef
+        class="input"
+        autocomplete="off"
+        [type]="inputType"
+        [mask]="mask"
+        [prefix]="prefix | defaultValue : ''"
+        [attr.data-locator]="locator || formControlName"
+        [errorStateMatcher]="errorMatcher"
+        [required]="required"
+        [readonly]="readonly"
+        [disabled]="disabled || readonly"
+        [placeholder]="placeholder"
+        [ngModel]="inputValue"
+        (focus)="toggleOptionsState(true)"
+      />
+    </div>
+
+    <button
+      *ngIf="copy"
+      matSuffix
+      mat-icon-button
+      matTooltip="Copy"
+      class="button icon small"
+      type="button"
+      [disabled]="value | notDefined"
+      (click)="copyValue()"
+    >
+      <ng-icon icon="content_copy"></ng-icon>
+    </button>
+    <mat-error
+      class="block"
+      *ngFor="let errorMessage of getErrorsMessages()"
+      @ANShowErrors
+    >
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<ng-template
+  #cdkConnectedOverlayRef
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="cdkOverlayOriginRef"
+  [cdkConnectedOverlayOpen]="isShowOptions"
+>
+  <ul
+    @ANShowOptions
+    class="form-autocomplete-options"
+    [style.width.px]="controlBoxRef.offsetWidth"
+  >
+    <li
+      class="form-autocomplete-options-item"
+      *ngFor="
+        let option of options$ | async | filter : bindLabel : inputRef.value
+      "
+      [value]="option[bindValue]"
+      [class.active]="option[bindValue] | equal : value"
+      (click)="selectOption(option)"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          optionTpl || defaultOptionTpl;
+          context: { $implicit: option }
+        "
+      ></ng-container>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #defaultOptionTpl let-option>
+  {{ option[bindLabel] }}
+</ng-template>

@@ -1,0 +1,95 @@
+@import "../../scss/form.mixins.scss";
+@import "variables.scss";
+@import "animations.scss";
+
+:host {
+  position: relative;
+  @include form-field;
+
+  .input {
+    @include control-value;
+  }
+
+  .email-icon {
+    font-size: 25px;
+  }
+
+  .maxlength {
+    white-space: nowrap;
+  }
+
+  input {
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px $baseWeak inset;
+    }
+
+    &[disabled] {
+      &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px $mercury inset;
+      }
+    }
+  }
+
+  .warning-text {
+    display: block;
+    color: $warning-color;
+    padding: 0 13px;
+  }
+
+  .options {
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    top: calc(100% - 5px);
+    background-color: $baseWeak;
+    border-radius: 12px;
+    box-shadow: $g-shadow;
+    max-height: 300px;
+    overflow: hidden auto;
+
+    .loading-option {
+      position: absolute;
+      display: flex;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.6);
+
+      .spinner {
+        margin: auto;
+      }
+    }
+
+    .empty-item {
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    &-item {
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: background-color $g-anime;
+
+      &.active {
+        background-color: rgb(211 200 241 / 30%);
+      }
+
+      &:nth-child(odd) {
+        animation: translate-x-left $g-anime;
+      }
+
+      &:nth-child(even) {
+        animation: translate-x-right $g-anime;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $mercury;
+      }
+
+      &:hover {
+        background-color: $mercury;
+      }
+    }
+  }
+}

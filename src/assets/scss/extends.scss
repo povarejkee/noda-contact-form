@@ -1,0 +1,61 @@
+@import "fonts.mixins.scss";
+@import "decoration.scss";
+
+.link {
+  cursor: pointer;
+  color: $purpleHeart;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.events-none {
+  pointer-events: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.font {
+  @include font();
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+.status-bg {
+  @include status-color(attr(data-status));
+}
+
+.font-middle {
+  vertical-align: middle;
+}

@@ -5,29 +5,35 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": false,
+    "allowUnreachableCode": false,
+    "allowJs": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "target": "es2017",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@env/*": ["./src/environments/*"],
+      "@core/*": ["./src/app/core/*"],
+      "@store/*": ["./src/app/store/*"],
+      "@page/*": ["./src/app/pages/*"]
+    }
   },
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
+    "annotateForClosureCompiler": true,
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
+    "enableResourceInlining": true,
     "strictTemplates": true
   }
 }

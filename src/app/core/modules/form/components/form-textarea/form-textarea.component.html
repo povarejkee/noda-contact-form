@@ -1,0 +1,42 @@
+<div class="control-wrapper">
+  <span class="control-label" [attr.data-required]="required">{{ label }}</span>
+  <mat-form-field
+    class="form-control form-textarea"
+    [class.disabled]="disabled || readonly"
+    [class.readonly]="readonly"
+    [class.invalid-control]="errorMatcher.isErrorState()"
+    [appearance]="appearance"
+  >
+    <textarea
+      #inputRef
+      matInput
+      [attr.data-locator]="locator || formControlName"
+      [errorStateMatcher]="errorMatcher"
+      [required]="required"
+      [disabled]="disabled"
+      [minlength]="minlength"
+      [maxlength]="maxlength"
+      [placeholder]="placeholder"
+      [readonly]="readonly"
+      [rows]="rows"
+      [cols]="cols"
+      [ngModel]="value"
+      (ngModelChange)="setValue($event)"
+      (blur)="onTouched()"
+    ></textarea>
+    <mat-hint *ngIf="maxlength | isJSType: 'number'" align="end">
+    <span class="hint maxlength font-description fz-12">
+      {{ inputRef.value.length }} / {{ maxlength }}
+    </span>
+    </mat-hint>
+    <ng-container matPrefix>
+      <ng-content select="prefixes"></ng-content>
+    </ng-container>
+    <ng-container matSuffix>
+      <ng-content select="suffixes"></ng-content>
+    </ng-container>
+    <mat-error *ngFor="let errorMessage of getErrorsMessages()">
+      <span class="error-hint font fz-12">{{ errorMessage }}</span>
+    </mat-error>
+  </mat-form-field>
+</div>
