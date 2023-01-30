@@ -1,0 +1,141 @@
+@import "fonts.mixins.scss";
+@import "variables.scss";
+@import "decoration.scss";
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0;
+  width: 845px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+
+  &-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &-title {
+      @include font-bold-title(24px);
+    }
+
+    &-link {
+      margin-top: 11px;
+      @include font(15px);
+
+      .link {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.cards {
+  display: flex;
+  width: 100%;
+  margin-top: 40px;
+  gap: 0;
+  box-shadow: 0px 0px 20px rgba(222, 222, 222, 0.25);
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    max-width: 410px;
+    margin: 40px auto 0;
+  }
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 360px;
+    padding: 23px;
+    background-color: $baseWeak;
+
+    @media (max-width: 1200px) {
+      width: 410px;
+    }
+
+    &:first-of-type {
+      position: relative;
+      padding-right: 36px;
+
+      @media (max-width: 1200px) {
+        padding-right: 23px;
+      }
+
+      &:after {
+        position: absolute;
+        right: 0;
+        top: 10%;
+        content: '';
+        width: 1px;
+        height: 80%;
+        background: #E8EAF3;
+
+        @media (max-width: 1200px) {
+          top: initial;
+          right: 10%;
+          bottom: 0;
+          height: 1px;
+          width: 80%;
+        }
+      }
+    }
+
+    &:last-of-type {
+      padding-left: 36px;
+
+      @media (max-width: 1200px) {
+        padding-left: 23px;
+      }
+    }
+
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+
+    &-picture {
+      width: 133px;
+    }
+
+    &-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 31px;
+
+      @media (max-width: 1200px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 17px;
+      }
+    }
+
+    &-title {
+      @include font-bold-title(18px);
+    }
+
+    &-description {
+      margin-top: 14px;
+      @include font-description();
+    }
+
+    &-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+
+      button {
+        font-size: 16px;
+      }
+    }
+  }
+}

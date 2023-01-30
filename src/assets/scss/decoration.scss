@@ -1,0 +1,87 @@
+@use "sass:map";
+
+@mixin gradient-border($color, $size: 1px) {
+  border: $size solid transparent;
+  border-image: $color;
+  border-image-slice: 1;
+}
+
+@mixin gradient-border-side($color, $size: 1px, $side: "left") {
+  border-#{$side}: $size solid transparent;
+  border-image: $color;
+  border-image-slice: 1;
+}
+
+@mixin readonly-form-modal() {
+  &.readonly-modal {
+    width: 100%;
+    padding: 20px 32px;
+    border-radius: 16px;
+    background-color: $whiteLilac;
+    transition: margin 0.8s linear;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      &-text {
+        @include font-bold-title(24px);
+      }
+
+      &-close-icon {
+        cursor: pointer;
+        color: #999999;
+        font-size: 20px;
+      }
+    }
+    .content {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 30px;
+      padding-top: 32px;
+
+      .part {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+
+        &:last-child {
+          grid-row-start: 1;
+        }
+
+        &-title {
+          @include font(17px);
+          text-transform: uppercase;
+          margin-bottom: 5px;
+        }
+
+        &-controls {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+
+          @media (max-width: 580px) {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
+    }
+    .footer {
+      &:not(:empty) {
+        padding-bottom: 30px;
+
+        ::ng-deep {
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 0px;
+            padding-right: 0px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin status-color($status: "default", $property: background-color) {
+  #{$property}: map.get($statuses-bg-colors, $status);
+}

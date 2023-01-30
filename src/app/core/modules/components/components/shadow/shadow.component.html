@@ -1,0 +1,14 @@
+<div
+  class="shadow"
+  ngSelector="body"
+  [ngSelectorStyles]="{ overflow: 'hidden' }"
+>
+  <div
+    class="shadow-content"
+    data-close-element
+    (mousedown)="close($event)"
+    [class.center]="contentCenter"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

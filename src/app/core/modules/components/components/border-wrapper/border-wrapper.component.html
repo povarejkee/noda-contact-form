@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <div class="border-row">
+    <div class="border-row-item top-left" [ngStyle]="getSize()"></div>
+    <div class="border-row-item top-right" [ngStyle]="getSize()"></div>
+  </div>
+  <div class="content" [style.padding]="contentPadding">
+    <ng-content></ng-content>
+  </div>
+  <div class="border-row">
+    <div class="border-row-item bottom-left" [ngStyle]="getSize()"></div>
+    <div class="border-row-item bottom-right" [ngStyle]="getSize()"></div>
+  </div>
+</div>

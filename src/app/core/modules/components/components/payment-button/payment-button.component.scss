@@ -1,0 +1,35 @@
+@use "sass:string";
+@import "variables.scss";
+@import "fonts.mixins.scss";
+
+.button {
+  ::ng-deep {
+    .__ndb__noda-wrapper {
+      transition: border $g-anime, box-shadow $g-anime;
+    }
+
+    .__ndb__noda-wrapper:before {
+      z-index: 0;
+    }
+    .__ndb__noda-inner {
+      z-index: 1;
+    }
+  }
+
+  &.shadow {
+    ::ng-deep {
+      .__ndb__noda-wrapper {
+        box-shadow: 0 4px 16px #0003;
+      }
+    }
+  }
+
+  &:not(.shadow) {
+    ::ng-deep {
+      .__ndb__noda-wrapper {
+        box-shadow: none;
+        border: 1px solid $cadetBlue;
+      }
+    }
+  }
+}

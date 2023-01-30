@@ -1,0 +1,98 @@
+<div class="main">
+  <button
+    mat-icon-button
+    type="button"
+    class="icon-btn"
+    #popupRef="ngPopupRef"
+    [ngPopup]="timepickerRef"
+    ngPopupOffsetY="-1px"
+  >
+    <ng-icon class="clock-icon" icon="schedule"> </ng-icon>
+  </button>
+</div>
+
+<ng-template #timepickerRef>
+  <div class="form-control">
+    <p class="header">Time</p>
+    <div class="controls">
+      <div class="control">
+        <div class="actions">
+          <button
+            class="actions-btn"
+            type="button"
+            [disabled]="preventDisabledSetDate('hours', 'max')"
+            (click)="step('hours', 'inc')"
+          >
+            <span class="material-icons icon-arrow"> keyboard_arrow_up </span>
+          </button>
+          <button
+            class="actions-btn"
+            type="button"
+            matTooltipPosition="before"
+            [disabled]="preventDisabledSetDate('hours', 'min')"
+            (click)="step('hours', 'dec')"
+          >
+            <span class="material-icons icon-arrow"> keyboard_arrow_down </span>
+          </button>
+        </div>
+        <div class="control-box" matTooltip="Scrolling">
+          <span class="label">Hours</span>
+          <input
+            readonly
+            [attr.data-locator]="locator || formControlName"
+            class="input"
+            type="number"
+            min="0"
+            max="23"
+            placeholder="Hours"
+            [disabled]="disabled"
+            [ngModel]="getValue('hours')"
+            (mousewheel)="wheel($event, 'hours')"
+          />
+        </div>
+      </div>
+      <div class="separate">
+        <div class="separate-circle"></div>
+        <div class="separate-circle"></div>
+      </div>
+      <div class="control">
+        <div class="control-box" matTooltip="Scrolling">
+          <span class="label">Minutes</span>
+          <input
+            class="input"
+            [attr.data-locator]="locator || formControlName"
+            matInput
+            readonly
+            type="number"
+            min="0"
+            max="59"
+            placeholder="Minutes"
+            [disabled]="disabled"
+            [ngModel]="getValue('minutes')"
+            (mousewheel)="wheel($event, 'minutes')"
+          />
+        </div>
+        <div class="actions">
+          <button
+            class="actions-btn"
+            type="button"
+            matTooltipPosition="after"
+            [disabled]="preventDisabledSetDate('minutes', 'max')"
+            (click)="step('minutes', 'inc')"
+          >
+            <span class="material-icons icon-arrow"> keyboard_arrow_up </span>
+          </button>
+          <button
+            class="actions-btn"
+            type="button"
+            matTooltipPosition="after"
+            [disabled]="preventDisabledSetDate('minutes', 'min')"
+            (click)="step('minutes', 'dec')"
+          >
+            <span class="material-icons icon-arrow"> keyboard_arrow_down </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

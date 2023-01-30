@@ -1,0 +1,98 @@
+@import "variables.scss";
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@mixin an-translate-y(
+  $fromValue: 50%,
+  $toValue: 0%,
+  $animationName: "animate-translate-y"
+) {
+  @keyframes #{animationName} {
+    from {
+      opacity: 0;
+      transform: translateY($fromValue);
+    }
+    to {
+      opacity: 1;
+      transform: translateY($toValue);
+    }
+  }
+
+  animation: #{animationName} $g-anime;
+}
+
+@mixin an-scale($fromValue: 0, $toValue: 1, $animationName: "animate-scale") {
+  @keyframes #{animationName} {
+    from {
+      opacity: 0;
+      transform: scale($fromValue);
+    }
+    to {
+      opacity: 1;
+      transform: scale($toValue);
+    }
+  }
+
+  animation: #{animationName} $g-anime;
+}
+
+@keyframes translate-x-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes translate-x-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes width {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 37.5px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

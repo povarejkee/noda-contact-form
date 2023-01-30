@@ -1,0 +1,61 @@
+<ng-container [ngSwitch]="dataFlags.isSentForm">
+  <div *ngSwitchCase="false" class="contact-form">
+    <h1 class="header">
+      Contact our sales team
+    </h1>
+
+
+    <form class="form" [formGroup]="form" (ngSubmit)="send()" [ngFormDisabled]="dataFlags.isLoading">
+      <div class="controls">
+        <ng-container *ngFor="let control of controls;" [ngSwitch]="control.params.type">
+          <ng-form-select
+            *ngSwitchCase="'select'"
+            [formControlName]="control.params.controlName"
+            [label]="control.params.label"
+            [placeholder]="control.params.placeholder"
+            [options]="control.params.options"
+            [required]="control.params.required"
+          />
+
+          <ng-form-autocomplete
+            *ngSwitchCase="'autocomplete'"
+            type="country"
+            [formControlName]="control.params.controlName"
+            [label]="control.params.label"
+            [placeholder]="control.params.placeholder"
+            [required]="control.params.required"
+          />
+
+          <ng-form-input
+            *ngSwitchDefault
+            [formControlName]="control.params.controlName"
+            [label]="control.params.label"
+            [placeholder]="control.params.placeholder"
+            [required]="control.params.required"
+            [mask]="control.params.mask"
+          />
+        </ng-container>
+      </div>
+
+      <ng-form-textarea
+        formControlName="comment"
+        label="Anything else?"
+        placeholder="Tell us more about your project, needs, and timeline"
+        [required]="false"
+      />
+
+      <div class="button-wrapper">
+        <button class="send-button button" [disabled]="disabledButton">
+          <span *ngIf="dataFlags.isLoading | equal: false; else loading">Send</span>
+
+          <ng-template #loading>
+            <ng-spinner class="spinner" [diameter]="25" [strokeWidth]="2"/>
+          </ng-template>
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+  <noda-sent-notification *ngSwitchCase="true"/>
+</ng-container>

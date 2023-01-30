@@ -1,0 +1,16 @@
+{
+  "production": false,
+  "APP_ENV": "DEVELOPMENT",
+  "APP_IMG": "/assets/images",
+  "APP_HOST": "https://hub.dev.noda.live/api",
+  "APP_WS_HOST": "{{replace-ws-dev-endpoint}}",
+  "APP_AZURE_B2C_REDIRECT_URI": "http://localhost:3000",
+  "APP_AZURE_B2C_CLIENT_ID": "0572d576-4072-4bda-aa43-db92fe686d82",
+  "APP_AZURE_B2C_AUTHORITY": "https://nodatestadmin.b2clogin.com/nodatestadmin.onmicrosoft.com/B2C_1_Noda_ADP",
+  "APP_AZURE_B2C_KNOW_AUTHORITIES": "nodatestadmin.b2clogin.com",
+  "APP_AZURE_B2C_READ_SCOPE": "https://nodatestadmin.onmicrosoft.com/api/noda.read",
+  "APP_AZURE_B2C_WRITE_SCOPE": "https://nodatestadmin.onmicrosoft.com/api/noda.write",
+  "APP_GTM": "_",
+  "APP_GBP_API_KEY": "24d0034-5a83-47d5-afa0-cca47298c516",
+  "APP_EUR_API_KEY": "053d07df-dafd-4bbc-808e-146f9b9338e1"
+}

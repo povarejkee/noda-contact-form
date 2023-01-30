@@ -1,0 +1,94 @@
+<div class="wrapper" [attr.data-id]="id">
+  <mat-form-field
+    class="form-control form-input-select"
+    [class.active-label]="activeLabel"
+    [class.disabled]="isDisabled()"
+    [class.invalid-control]="errorMatcher.isErrorState()"
+    [class.warning]="isShowWarning"
+    [class.errors]="errors?.length | boolean"
+    [attr.data-mode]="mode"
+    [appearance]="appearance"
+  >
+    <mat-label>{{ label }}</mat-label>
+    <input
+      class="input"
+      id="input"
+      #inputRef
+      matInput
+      [attr.data-locator]="locator || formControlName"
+      autocomplete="off"
+      [errorStateMatcher]="errorMatcher"
+      [ngDisabled]="disabled || readonly"
+      [required]="required"
+      [minlength]="minlength"
+      [maxlength]="maxlength"
+      [placeholder]="placeholder"
+      [readonly]="readonly"
+      [prefix]="prefix | defaultValue : ''"
+      [mask]="mask"
+      [validation]="false"
+      [showMaskTyped]="showMaskTyped"
+      [ngModel]="value"
+      (input)="search(inputRef.value)"
+      (paste)="paste($event)"
+      (focus)="focus()"
+    />
+    <mat-hint *ngIf="maxlength | isJSType : 'number'" align="end">
+      <span class="hint maxlength">
+        {{ inputRef.value.length }} / {{ maxlength }}
+      </span>
+    </mat-hint>
+    <ng-container matPrefix>
+      <ng-content select="prefixes"></ng-content>
+    </ng-container>
+    <ng-container matSuffix>
+      <ng-content select="suffixes"></ng-content>
+    </ng-container>
+    <button
+      *ngIf="copy"
+      matSuffix
+      mat-icon-button
+      matTooltip="Copy"
+      class="button icon small"
+      type="button"
+      [disabled]="disabled"
+      (click)="copyValue()"
+    >
+      <ng-icon icon="content_copy"></ng-icon>
+    </button>
+
+    <mat-error *ngFor="let errorMessage of getErrorsMessages()">
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+  <div class="after-content">
+    <div *ngIf="isShowWarning" @ANShowWarning>
+      <span class="font fz-12 warning-text">
+        Type the text and select a value from the list
+      </span>
+    </div>
+    <ng-content select="after-content"></ng-content>
+  </div>
+
+  <ul *ngIf="isShowOptionsList" @ANShowOptions class="options">
+    <li class="empty-item" *ngIf="!options?.length; else optionsTpl">
+      {{ emptyMessage }}
+    </li>
+    <li class="loading-option" *ngIf="isLoadingOptions">
+      <ng-spinner class="spinner"></ng-spinner>
+    </li>
+    <ng-template #optionsTpl>
+      <li
+        class="options-item"
+        *ngFor="
+          let option of options | map : parseTemplateOptions;
+          trackBy: trackByFn
+        "
+        [class.active]="getValue() | equal : option.value"
+        (click)="selectOption(option)"
+      >
+        {{ option.title }}
+      </li>
+    </ng-template>
+  </ul>
+</div>

@@ -1,0 +1,100 @@
+<div class="control-wrapper">
+  <span class="control-label" [attr.data-required]="required">{{ label }}</span>
+  <mat-form-field
+    class="form-control form-input"
+    [attr.data-mode]="mode"
+    [attr.data-strategy]="errorStrategy"
+    [class.active-label]="activeLabel"
+    [class.disabled]="disabled || readonly"
+    [class.invalid-control]="errorMatcher?.isErrorState()"
+    [class.errors]="errors?.length | boolean"
+    [appearance]="appearance"
+  >
+    <input
+      class="input"
+      #inputRef
+      matInput
+      [attr.data-locator]="locator || formControlName"
+      [attr.autocomplete]="autocomplete | defaultValue : 'off'"
+      [errorStateMatcher]="errorMatcher"
+      [required]="required"
+      [disabled]="disabled || readonly"
+      [min]="min"
+      [max]="max"
+      [minlength]="minlength"
+      [maxlength]="maxlength"
+      [step]="step"
+      [placeholder]="placeholder"
+      [readonly]="readonly"
+      [prefix]="prefix | defaultValue : ''"
+      [type]="type"
+      [mask]="mask"
+      [validation]="false"
+      [patterns]="maskPatterns"
+      [thousandSeparator]="thousandSeparator"
+      [allowNegativeNumbers]="allowNegativeNumbers"
+      [dropSpecialCharacters]="dropSpecialCharacters"
+      [placeHolderCharacter]="placeHolderCharacter | defaultValue : ''"
+      [showMaskTyped]="showMaskTyped"
+      [ngModel]="value | encrypt : encrypt"
+      (ngModelChange)="setValue($event)"
+      (blur)="blur(inputRef)"
+      (paste)="paste($event)"
+    />
+    <mat-hint *ngIf="maxlength | isJSType : 'number'" align="end">
+    <span class="hint maxlength">
+      {{ inputRef.value.length }} / {{ maxlength }}
+    </span>
+    </mat-hint>
+    <mat-hint *ngIf="min || max" align="end">
+    <span class="hint maxlength">
+      min: {{ min ?? 0 }}
+      <span *ngIf="max"> / max: {{ max | numberTransform }}</span>
+    </span>
+    </mat-hint>
+    <div matPrefix class="prefixes">
+      <ng-flag *ngIf="country" [country]="country"></ng-flag>
+      <ng-content select="prefixes"></ng-content>
+    </div>
+    <div matSuffix class="suffixes">
+      <ng-icon
+        *ngIf="currency"
+        class="currency-icon"
+        [icon]="currency"
+        [@ANRepeatState]="currency"
+      >
+      </ng-icon>
+
+      <ng-icon
+        *ngIf="isShowResetIcon"
+        @ANShowResetIcon
+        class="reset-icon"
+        icon="close"
+        (click)="resetValue($event)"
+      >
+      </ng-icon>
+
+      <button
+        *ngIf="copy"
+        mat-icon-button
+        matTooltip="Copy"
+        class="button icon small"
+        type="button"
+        [disabled]="disabled"
+        (click)="copyValue()"
+      >
+        <ng-icon icon="content_copy"></ng-icon>
+      </button>
+
+      <ng-icon *ngIf="email" class="email-icon" icon="alternate_email"></ng-icon>
+      <ng-content select="suffixes"></ng-content>
+    </div>
+
+    <mat-error *ngFor="let errorMessage of getErrorsMessages()">
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+  <div class="after-content">
+    <ng-content select="after-content"></ng-content>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<!-- <i [ngClass]="getIconClass()">
+  <ng-content></ng-content>
+</i> -->
+<ng-container [ngSwitch]="mode">
+  <i *ngSwitchCase="'material'" [ngClass]="getMaterialIconClass()">
+    {{ icon }}
+  </i>
+  <span *ngSwitchCase="'social-cdn'" [ngClass]="getSocialMediaIconClass(icon)">
+  </span>
+</ng-container>

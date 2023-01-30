@@ -1,0 +1,52 @@
+<mat-form-field
+  class="form-control"
+  [class.disabled]="disabled || readonly"
+  [class.invalid-control]="errorMatcher.isErrorState()"
+  [attr.data-mode]="mode"
+  [class.errors]="errors?.length | boolean"
+  [appearance]="appearance"
+  (click)="dp3.open()"
+>
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    class="input"
+    [attr.data-locator]="locator || formControlName"
+    [readonly]="true"
+    [min]="minDate"
+    [max]="maxDate"
+    [disabled]="disabled"
+    [required]="required"
+    [errorStateMatcher]="errorMatcher"
+    [matDatepicker]="dp3"
+    [ngModel]="value"
+    (ngModelChange)="setValue($event)"
+  />
+
+  <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+  <mat-datepicker #dp3></mat-datepicker>
+  <ng-form-timepicker
+    *ngIf="timepicker && !disabled"
+    matSuffix
+    [disabled]="disabled"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    [ngModel]="value"
+    (ngModelChange)="setValue($event)"
+  ></ng-form-timepicker>
+  <button
+    *ngIf="copy && !disabled"
+    matSuffix
+    mat-icon-button
+    class="button icon small"
+    matTooltip="Copy"
+    type="button"
+    [disabled]="!(value | isJSType : 'date')"
+    (click)="copyValue()"
+  >
+    <ng-icon icon="content_copy"></ng-icon>
+  </button>
+  <mat-error *ngFor="let errorMessage of getErrorsMessages()">
+    {{ errorMessage }}
+  </mat-error>
+</mat-form-field>

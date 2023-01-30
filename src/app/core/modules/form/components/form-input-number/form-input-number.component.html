@@ -1,0 +1,93 @@
+<div>
+  <span>{{ label }}</span>
+  <mat-form-field
+    class="form-control form-input-number"
+    [class.disabled]="disabled || readonly"
+    [class.invalid-control]="errorMatcher.isErrorState()"
+    [class.errors]="errors?.length | boolean"
+    [attr.data-mode]="mode"
+    [appearance]="appearance"
+  >
+    <input
+      class="input"
+      id="input"
+      #inputRef
+      matInput
+      autocomplete="off"
+      [attr.data-locator]="locator || formControlName"
+      [errorStateMatcher]="errorMatcher"
+      [required]="required"
+      [disabled]="disabled || readonly"
+      [min]="min"
+      [max]="max"
+      [mask]="mask"
+      [step]="step"
+      [dropSpecialCharacters]="false"
+      [allowNegativeNumbers]="allowNegativeNumbers"
+      [thousandSeparator]="thousandSeparator"
+      [separatorLimit]="maxlength"
+      [placeholder]="placeholder"
+      [readonly]="readonly"
+      [ngModel]="value"
+      (ngModelChange)="setValue($event)"
+      (blur)="blur()"
+    />
+    <mat-hint *ngIf="min || max" align="end">
+    <span class="hint maxlength">
+      <span *ngIf="min | defined">min: {{ min }} / </span>
+      <span *ngIf="max | defined">max: {{ max | numberTransform }}</span>
+    </span>
+    </mat-hint>
+    <ng-container matPrefix>
+      <ng-content select="prefixes"></ng-content>
+    </ng-container>
+    <ng-container matSuffix>
+      <ng-content select="suffixes"></ng-content>
+    </ng-container>
+    <!-- <div class="steps" matSuffix>
+      <button
+        mat-icon-button
+        matTooltip="Increment"
+        class="button icon medium step-btn"
+        [disabled]="disabled || readonly || isDisabledStep('inc')"
+        (click)="setValueByStep('inc')"
+      >
+        <ng-icon class="step-icon">expand_less</ng-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Decrement"
+        class="button icon medium step-btn"
+        [disabled]="disabled || readonly || isDisabledStep('dec')"
+        (click)="setValueByStep('dec')"
+      >
+        <ng-icon class="step-icon">expand_more</ng-icon>
+      </button>
+    </div> -->
+    <ng-icon
+      class="currency-icon"
+      *ngIf="currency"
+      matSuffix
+      [icon]="currency"
+      [@ANRepeatState]="currency"
+    >
+    </ng-icon>
+
+    <ng-icon
+      *ngIf="isShowResetIcon"
+      @ANShowResetIcon
+      matSuffix
+      class="reset-icon"
+      icon="close"
+      (click)="resetValue($event)"
+    >
+    </ng-icon>
+
+    <mat-error *ngFor="let errorMessage of getErrorsMessages()">
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+  <div class="after-content">
+    <ng-content select="after-content"></ng-content>
+  </div>
+</div>

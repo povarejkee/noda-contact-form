@@ -1,0 +1,15 @@
+<a
+  download
+  *ngIf="url; else emptyTpl"
+  [href]="url"
+  class="download-icon"
+  matTooltip="Upload"
+  [href]="url"
+  [class.disabled]="disabled"
+>
+  <span class="material-icons">cloud_upload</span>
+</a>
+
+<ng-template #emptyTpl>
+  <p class="empty">No file</p>
+</ng-template>

@@ -1,0 +1,8 @@
+<div class="flag" [attr.data-type]="type" [attr.data-size]="size">
+  <img
+    *ngIf="country"
+    class="flag-picture"
+    alt="flag"
+    [src]="country | url: 'country-flag'"
+  />
+</div>

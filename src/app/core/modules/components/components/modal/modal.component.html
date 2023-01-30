@@ -1,0 +1,35 @@
+<div class="modal">
+  <ng-icon class="close-icon" icon="close" (click)="close()"></ng-icon>
+  <h6 class="header">{{ header }}</h6>
+  <div class="content">
+    <ng-content></ng-content>
+  </div>
+
+  <ng-container *ngIf="!hideActions">
+    <div class="actions" *ngIf="actionsRef; else actionsTpl">
+      <ng-container *ngTemplateOutlet="actionsRef"></ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #actionsTpl>
+  <div class="actions">
+    <ng-button
+      class="action-btn submit-btn"
+      [text]="actionText"
+      [fullWidth]="true"
+      [disabled]="disabled"
+      [loading]="loading"
+      (action)="save()"
+    ></ng-button>
+    <button
+      mat-button
+      class="button stroke medium full-width action-btn"
+      type="button"
+      [disabled]="loading"
+      (click)="close()"
+    >
+      Cancel
+    </button>
+  </div>
+</ng-template>

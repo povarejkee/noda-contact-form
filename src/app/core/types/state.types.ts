@@ -1,0 +1,13 @@
+export type TSide = 'top' | 'bottom' | 'left' | 'right';
+export type TPosition = 'start' | 'end';
+export type TAdjustPosition = 'before' | 'after';
+export type TStep = 'back' | 'forward';
+export type TDirection = 'previous' | 'next';
+export type TSize = 'small' | 'medium' | 'large';
+export type TShowState = 'hide' | 'show';
+export type TSortDirection = 'asc' | 'desc' | '';
+export type TButton = 'button' | 'submit';
+export type TIcon = 'filled' | 'outlined' | 'rounded' | 'sharp' | 'two-tone';
+export type TIconMode = 'material' | 'social-cdn';
+export type TInsert = 'replace' | 'begin' | 'end';
+export type TStatus = 'success' | 'error' | 'warning' | 'primary' | 'default';

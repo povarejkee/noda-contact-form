@@ -1,0 +1,41 @@
+@import "variables";
+@import "fonts.mixins";
+
+.status {
+  display: flex;
+  align-items: center;
+
+  .status-icon {
+    font-size: 24px;
+  }
+
+  .title {
+    text-transform: uppercase;
+    margin-left: 8px;
+
+    @include font(14px, $fw: 400);
+    color: inherit;
+  }
+}
+
+.status {
+  &[data-type="default"] {
+    color: $disabledFont;
+
+    .title {
+      color: $default-color;
+    }
+  }
+
+  &[data-type="success"] {
+    color: $success-color;
+  }
+
+  &[data-type^="warning"] {
+    color: $warning-color;
+  }
+
+  &[data-type="error"] {
+    color: $error-color;
+  }
+}

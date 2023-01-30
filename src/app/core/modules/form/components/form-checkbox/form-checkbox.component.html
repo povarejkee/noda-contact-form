@@ -1,0 +1,14 @@
+<div class="form-control" [class.invalid-control]="formControl.invalid">
+  <mat-checkbox
+    class="example-margin"
+    [attr.data-locator]="locator || formControlName"
+    [indeterminate]="indeterminate"
+    [labelPosition]="labelPosition"
+    [required]="required"
+    [disabled]="disabled"
+    [ngModel]="value"
+    (ngModelChange)="setValue($event)"
+  >
+    <span class="label">{{ label }}</span>
+  </mat-checkbox>
+</div>

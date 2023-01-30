@@ -1,0 +1,28 @@
+@import "variables.scss";
+@import "fonts.mixins.scss";
+
+.status-chips {
+  padding: 4px 15px;
+  border-radius: 4px;
+
+  &[data-status="default"] {
+    background-color: $default-color;
+  }
+
+  &[data-status="warning"] {
+    background-color: $warning-color;
+  }
+
+  &[data-status="error"] {
+    background-color: $error-color;
+  }
+
+  &[data-status="success"] {
+    background-color: $success-color;
+  }
+
+  &-value {
+    color: $baseWeak;
+    @include font(15px, white);
+  }
+}

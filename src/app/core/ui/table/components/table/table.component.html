@@ -1,0 +1,320 @@
+<div class="container" *ngLoader="rows$ | async as rows">
+  <!-- *Header -->
+  <div class="header" *ngAsync="columns$ | async as columns">
+    <h6 class="header-text" *ngIf="headerTitle | boolean">{{ headerTitle }}</h6>
+    <ng-content select="before-actions"></ng-content>
+    <div class="header-actions" *ngIf="mode | equal : 'filtered'">
+      <button
+        mat-mini-fab
+        class="button mini-fab header-actions-btn"
+        matTooltip="Reset sorting"
+        [disabled]="isDisabledSortedBtn()"
+        (click)="resetSort()"
+      >
+        <ng-icon icon="sort_by_alpha"></ng-icon>
+      </button>
+      <button
+        mat-mini-fab
+        class="button mini-fab header-actions-btn"
+        matTooltip="Reset filters"
+        [disabled]="isDisabledResetFiltersBtn()"
+        (click)="resetFilters()"
+      >
+        <ng-icon icon="filter_list_off"></ng-icon>
+      </button>
+    </div>
+
+    <div class="after-actions">
+      <div
+        *ngIf="mode | equal : 'filtered'"
+        class="header-toggle-columns"
+        #ngPopupRef="ngPopupRef"
+        ngPopupEvent="click"
+        ngPopupOffsetX="-41%"
+        [ngPopup]="toggleColumnsTpl"
+        [ngPopupContext]="{ columns: columns, popup: ngPopupRef }"
+      >
+        <ng-icon
+          class="header-toggle-columns-icon column-icon"
+          type="outlined"
+          icon="view_column"
+        >
+        </ng-icon>
+        <ng-icon
+          class="header-toggle-columns-icon arrow-icon"
+          icon="expand_more"
+        >
+        </ng-icon>
+      </div>
+      <ng-content select="after-actions"></ng-content>
+    </div>
+  </div>
+
+  <!-- *List -->
+
+  <div class="table" *ngIf="columns$ | async as columns">
+    <div class="table-container">
+      <!-- * Table -->
+      <table
+        *ngAsync="columns$ | async as columns"
+        class="table-container-list"
+        mat-table
+        multiTemplateDataRows
+        #tableRef
+        [class.transparent]="mode | equal : 'transparent'"
+        [dataSource]="rows.items"
+        [trackBy]="trackByCellFn"
+        [fixedLayout]="fixedLayout"
+      >
+        <!-- *Cells -->
+
+        <ng-container
+          *ngFor="
+            let column of columns | map : filterActiveColumns;
+            trackBy: trackById
+          "
+          [matColumnDef]="column.columnDef"
+        >
+          <!-- *Header cell -->
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="header-cell"
+            [width]="column?.width | defaultValue : '175px'"
+            [attr.data-header-cell]="column.columnDef"
+            [attr.data-mode]="mode"
+            [style.minWidth]="column?.width | defaultValue : '175px'"
+            [class.merge]="column.merge"
+          >
+            <ng-container
+              *ngTemplateOutlet="headerCellTpl; context: { column: column }"
+            ></ng-container>
+          </th>
+
+          <!-- *Rows cell -->
+          <td
+            mat-cell
+            *matCellDef="let row"
+            class="row-cell"
+            ngTableCellContentSlice
+            [class.details]="tableDetailsTemplate | boolean"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                rowCellTpl;
+                context: { row: row, column: column }
+              "
+            ></ng-container>
+          </td>
+
+          <!-- *Footer cell -->
+          <td mat-footer-cell *matFooterCellDef>
+            <span
+              class="column-footer fw-600"
+              [attr.data-footer-cell]="column.columnDef"
+            >
+              {{ getFooterCellText(column, rows) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- *Details-cell -->
+        <ng-container *ngIf="tableDetailsTemplate" matColumnDef="detailsRow">
+          <td
+            mat-cell
+            class="details"
+            *matCellDef="let row"
+            [attr.colspan]="columns.length"
+          >
+            <ng-container
+              *ngTemplateOutlet="tableDetailsTemplate; context: { row: row }"
+            ></ng-container>
+          </td>
+        </ng-container>
+
+        <!-- * Header-row -->
+        <tr
+          mat-header-row
+          class="header-row"
+          *matHeaderRowDef="
+            $any(columns | map : filterActiveColumns) | pickMap : 'columnDef';
+            sticky: true
+          "
+        ></tr>
+
+        <!-- * List row -->
+        <tr
+          mat-row
+          *matRowDef="
+            let row;
+            let last = last;
+            columns: $any(columns | map : filterActiveColumns)
+              | pickMap : 'columnDef'
+          "
+          class="cells-row"
+          [class.last]="last"
+          [class.pointer]="clickableRow"
+          (click)="rowClick(row)"
+        ></tr>
+
+        <!-- * Empty row -->
+        <tr class="row-empty" *matNoDataRow>
+          <td class="row-empty-cell">{{ emptyMessage }}</td>
+        </tr>
+
+        <!-- * Details row -->
+        <ng-container *ngIf="tableDetailsTemplate">
+          <tr
+            mat-row
+            class="details-row"
+            *matRowDef="let row; columns: ['detailsRow']"
+          ></tr>
+        </ng-container>
+
+        <!-- * Footer row -->
+        <ng-container *ngIf="isExistFooterColumn">
+          <tr
+            mat-footer-row
+            *matFooterRowDef="columns | pickMap : 'columnDef'"
+          ></tr>
+        </ng-container>
+      </table>
+
+      <!-- * Loader -->
+      <ng-loader-content
+        *ngIf="dataFlags.isFetched"
+        [mode]="loaderContentMode(rows)"
+        [diameter]="loaderContentDiameter(rows)"
+        data-locator="table-spinner"
+      ></ng-loader-content>
+
+      <!-- * Reset -->
+      <ng-table-toggle-columns-reset
+        *ngIf="viewState.isHideAllColumns"
+        @ANShowFade
+        (reset)="viewService.resetColumns()"
+      ></ng-table-toggle-columns-reset>
+    </div>
+
+    <!-- * Paginator -->
+    <mat-paginator
+      *ngIf="rows.totalItems > sizeOptions[0] && !viewState.isHideAllColumns"
+      class="paginator"
+      [length]="rows.totalItems"
+      [pageSize]="getFromParams('pageSize')"
+      [pageIndex]="getFromParams('pageNumber')"
+      [pageSizeOptions]="sizeOptions"
+      (page)="setPage($event)"
+    ></mat-paginator>
+  </div>
+</div>
+
+<!-- * Toggle columns template -->
+
+<ng-template #toggleColumnsTpl let-columns="columns" let-popup="popup">
+  <ng-table-toggle-columns
+    [columns]="columns"
+    [defaultColumns]="viewState.defaultColumns"
+    (close)="popup.close()"
+    (apply)="setColumnsList($event); popup.close()"
+  ></ng-table-toggle-columns>
+</ng-template>
+
+<!-- * Header templates -->
+<ng-template
+  #headerCellTpl
+  let-column="column"
+  [ngSwitch]="tableHeaderTemplate | boolean"
+>
+  <ng-container *ngSwitchCase="true">
+    <ng-container
+      *ngTemplateOutlet="tableHeaderTemplate; context: { column: column }"
+    ></ng-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="false">
+    <ng-container
+      *ngTemplateOutlet="defaultHeaderTpl; context: { column: column }"
+    ></ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #defaultHeaderTpl let-column="column">
+  <div [ngSwitch]="mode" class="header-cell-content">
+    <ng-container *ngSwitchCase="'filtered'">
+      <ng-container
+        *ngTemplateOutlet="filteredHeaderTpl; context: { column: column }"
+      ></ng-container>
+    </ng-container>
+    <span *ngSwitchDefault data-header-title>{{ column.header }}</span>
+  </div>
+</ng-template>
+
+<ng-template #filteredHeaderTpl let-column="column">
+  <div class="header-cell-content-box filtered">
+    <div
+      class="header-info"
+      [class.pointer]="column.sort"
+      [class.active]="isActiveSortColumn(column.columnDef)"
+      (click)="sortColumn(column)"
+    >
+      <span class="header-info-title" data-header-title>
+        {{ column.header }}
+      </span>
+      <div class="header-info-sort" *ngIf="column.sort">
+        <ng-icon
+          class="header-info-sort-icon"
+          icon="expand_less"
+          [class.active]="getSortedDir(column.columnDef) | equal : 'asc'"
+        >
+        </ng-icon>
+        <ng-icon
+          class="header-info-sort-icon"
+          icon="expand_more"
+          [class.active]="getSortedDir(column.columnDef) | equal : 'desc'"
+        >
+        </ng-icon>
+      </div>
+    </div>
+    <div class="header-filter" *ngIf="column.filter">
+      <ng-table-column-filter
+        [filterOption]="column.filterOption"
+        [query]="getParsedQuery()"
+        (filter)="filter($event)"
+      ></ng-table-column-filter>
+    </div>
+  </div>
+</ng-template>
+
+<!-- * Row template -->
+
+<ng-template #rowCellTpl let-column="column" let-row="row">
+  <div class="cell-wrapper" [ngSwitch]="true">
+    <div
+      class="default-row-cell"
+      *ngSwitchCase="tableCellTemplate | notDefined"
+    >
+      <span data-cell-content class="text">
+        {{ column.cell(row) | defaultValue : "-" }}
+      </span>
+    </div>
+
+    <ng-container *ngSwitchCase="tableCellTemplate | defined">
+      <ng-container
+        *ngTemplateOutlet="
+          tableCellTemplate;
+          context: { row: row, column: column }
+        "
+      ></ng-container>
+    </ng-container>
+    <ng-icon-btn
+      *ngIf="column.copy"
+      class="copy-icon"
+      mode="theme"
+      matTooltip="Copy"
+      [ngCopy]="column.cell(row)"
+    >
+      content_copy
+    </ng-icon-btn>
+  </div>
+</ng-template>

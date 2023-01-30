@@ -1,0 +1,14 @@
+<div class="img-container">
+  <div
+    *ngIf="upload"
+    class="upload-link"
+    matTooltip="Save as"
+    ngDownloadType="url"
+    [ngDownload]="url"
+  ></div>
+  <img
+    [style.objectFit]="fit"
+    [src]="from | equal: 'assets' | condition: (url | assetsImg):url"
+    [alt]="alt"
+  />
+</div>

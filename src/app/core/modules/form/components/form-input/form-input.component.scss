@@ -1,0 +1,10 @@
+@import "../../scss/form.mixins.scss";
+@import "variables.scss";
+
+:host {
+  @include form-field;
+
+  .input {
+    @include control-value;
+  }
+}

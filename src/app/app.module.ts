@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
+import { StoreModule } from '@store/store/modules/store.module';
 import { AppRoutingModule } from './app-routing.module';
+import { ContactFormModule } from '@page/contact-form/contact-form.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    StoreModule,
+    AppRoutingModule,
+    ContactFormModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

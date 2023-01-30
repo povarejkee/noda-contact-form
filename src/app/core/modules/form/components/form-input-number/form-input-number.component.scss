@@ -1,0 +1,49 @@
+@import "../../scss/form.mixins.scss";
+@import "variables.scss";
+
+:host {
+  @include form-field;
+
+  .input {
+    @include control-value;
+  }
+
+  .currency-icon {
+    display: block;
+    padding-right: 5px;
+    color: $pickledBluewood;
+    font-size: 25px;
+    font-weight: 100;
+    animation: scale $g-anime;
+  }
+
+  .maxlength {
+    white-space: nowrap;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .step-icon {
+      font-weight: bold;
+    }
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input {
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $baseWeak inset;
+  }
+
+  &[disabled] {
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px $mercury inset;
+    }
+  }
+}

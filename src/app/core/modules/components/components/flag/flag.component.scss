@@ -1,0 +1,29 @@
+.flag {
+  overflow: hidden;
+  position: relative;
+
+  &[data-type="circle"] {
+    border-radius: 50%;
+  }
+
+  &[data-size="small"] {
+    height: 30px;
+    width: 30px;
+  }
+
+  &[data-size="medium"] {
+    height: 35px;
+    width: 35px;
+  }
+
+  &[data-size="large"] {
+    height: 40px;
+    width: 40px;
+  }
+
+  &-picture {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

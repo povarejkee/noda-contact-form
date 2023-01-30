@@ -1,0 +1,4 @@
+<div class="logo" [class.default]="!(url | boolean)" (click)="navigate()">
+  <ng-picture class="picture" url="system/logo.svg" alt="logo"></ng-picture>
+  <div class="hub" [attr.data-theme]="theme">hub</div>
+</div>

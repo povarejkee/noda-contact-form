@@ -1,0 +1,63 @@
+@import "fonts.mixins.scss";
+@import "variables.scss";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  background-color: $whiteLilac;
+  border-radius: 4px;
+  min-width: 310px;
+
+  padding: 10px 15px;
+  box-shadow: 0px 4px 12px rgba(41, 48, 77, 0.12);
+
+  .sliders {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin-top: 20px;
+    min-height: 126px;
+    max-height: 350px;
+    width: 100%;
+
+    &:empty {
+      &:after {
+        content: attr(data-search-value);
+        display: block;
+        text-align: center;
+        font-size: 15px;
+      }
+    }
+
+    &-item {
+      &:not(:first-child) {
+        margin-top: 8px;
+      }
+
+      &-text {
+        @include font(16px, $pickledBluewood, 400);
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    width: 100%;
+    padding-top: 15px;
+  }
+
+  .apply {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 10px;
+
+    &-btn {
+      flex-grow: 1;
+    }
+  }
+}

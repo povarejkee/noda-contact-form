@@ -1,0 +1,421 @@
+@import "fonts.mixins.scss";
+@import "variables.scss";
+@import "mixins.scss";
+@import "animations.scss";
+
+.container {
+  $x-padding: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 14px $x-padding;
+
+    &-text {
+      @include font-bold-title(24px);
+    }
+
+    &-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: 20px;
+
+      &-btn {
+        font-size: 22px;
+      }
+    }
+
+    .after-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-grow: 1;
+      gap: 10px;
+    }
+
+    &-toggle-columns {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border: 2px solid $purpleHeart;
+      border-radius: 4px;
+      padding: 7px 7px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: $purpleHeart;
+        .header-toggle-columns-icon {
+          color: $baseWeak;
+        }
+      }
+
+      &-icon {
+        color: $purpleHeart;
+
+        &.column-icon {
+          font-size: 24px;
+        }
+
+        &.arrow-icon {
+          font-size: 21px;
+        }
+      }
+    }
+  }
+
+  .table {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 $x-padding;
+    flex-grow: 1;
+    overflow: hidden;
+
+    &-container {
+      width: 100%;
+      overflow: auto;
+
+      .columns-dropdown,
+      .columns-filter {
+        position: absolute;
+        left: 2rem;
+        top: 61px;
+        z-index: 1;
+      }
+
+      &-list {
+        width: 100%;
+
+        &.transparent {
+          background-color: transparent;
+
+          ::ng-deep {
+            thead {
+              .mat-header-row {
+                background-color: $whiteLilac;
+              }
+            }
+          }
+        }
+
+        .header-row {
+          th {
+            [data-header-title] {
+              transition: color $g-anime;
+              @include font(12px, $darkGray, 600);
+            }
+
+            &:last-child {
+              border-right: none !important;
+            }
+
+            &.header-cell {
+              padding: 10px;
+            }
+
+            &[data-mode="default"] {
+              &.header-cell {
+                border-right: 1px solid #e8eaf3;
+                border-bottom: 2px solid #e8eaf3;
+              }
+            }
+
+            &[data-mode="filtered"] {
+              border-right: 2px solid $solitude;
+              border-bottom: none;
+
+              &:hover {
+                [data-header-title] {
+                  color: $purpleHeart;
+                }
+              }
+
+              .header-cell-content {
+                display: flex;
+                flex-direction: column;
+
+                .header-info {
+                  display: flex;
+                  width: 100%;
+                  align-items: center;
+                  gap: 8px;
+                  min-height: 30px;
+
+                  &.active {
+                    .header-info-title {
+                      color: $purpleHeart;
+                    }
+                  }
+
+                  &-sort {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    &-icon {
+                      font-size: 18px;
+                      font-weight: 800;
+                      height: 15px;
+                      width: 15px;
+                      color: $cadetBlue;
+                      transition: color 0.1s ease;
+
+                      &.active {
+                        color: $purpleHeart;
+                      }
+                    }
+                  }
+                }
+
+                .header-filter {
+                  margin-top: 10px;
+                  box-shadow: 0px 10px 20px rgb(41 48 77 / 5%);
+                }
+              }
+
+              &.merge {
+                border-right: none;
+              }
+            }
+          }
+        }
+
+        .cells-row {
+          td {
+            border-bottom: 1px solid $mercury;
+            padding: 15px;
+            padding-left: 10px;
+            @include font($fz: 12px);
+
+            .cell-wrapper {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            }
+
+            .copy-icon {
+              font-size: 16px;
+              vertical-align: middle;
+              cursor: pointer;
+            }
+
+            &.details {
+              border-bottom: none;
+            }
+
+            .text {
+              @include font($fz: 12, $fw: 400);
+            }
+
+            .default-row-cell {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            }
+          }
+
+          //  * Popup
+
+          td {
+            &[data-cell-full-content] {
+              position: relative;
+
+              &:after {
+                position: absolute;
+                display: none;
+                z-index: 1;
+                padding: 12px;
+                user-select: all;
+                pointer-events: none;
+                border-radius: 4px;
+                background-color: #fffffe;
+                box-shadow: 0px 4px 12px rgba(41, 48, 77, 0.12);
+                content: attr(data-cell-full-content);
+                cursor: default;
+                @include font(12px);
+              }
+
+              &:last-child {
+                &[data-cell-full-content] {
+                  &:after {
+                    right: 0px;
+                  }
+                }
+              }
+
+              &:hover:after {
+                display: block;
+              }
+            }
+          }
+
+          &:not(.last) > td {
+            &[data-cell-full-content] {
+              &:after {
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                animation: top-cell-tooltip $g-anime;
+              }
+            }
+          }
+
+          &.last > td {
+            &[data-cell-full-content] {
+              &:after {
+                bottom: 0px;
+                animation: bottom-cell-tooltip $g-anime;
+              }
+            }
+          }
+          //  * Popup
+        }
+
+        ::ng-deep {
+          tbody {
+            tr:last-child {
+              td {
+                .cell-wrapper[data-cell-full-content] {
+                  &:after {
+                    bottom: -18px;
+                    top: initial !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .details-row {
+          height: auto;
+
+          ::ng-deep {
+            [data-table-details-text] {
+              @include font-description(12px);
+            }
+          }
+
+          td {
+            padding: 10px;
+
+            &:empty {
+              height: 0;
+              padding: 0;
+            }
+          }
+        }
+
+        .row-empty {
+          position: relative;
+          height: 60px;
+
+          .row-empty-cell {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            white-space: nowrap;
+            border-bottom: none;
+            transform: translate(-50%, -50%);
+            @include font-bold-title();
+
+            @include for-safari {
+              transform: translate(-50%, 36%);
+            }
+          }
+        }
+      }
+
+      &-spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(247, 249, 252, 0.8);
+      }
+    }
+
+    .paginator {
+      display: flex;
+      align-self: flex-end;
+      background: transparent;
+      transition: opacity $g-anime;
+
+      &.disabled {
+        opacity: 0.3;
+        pointer-events: none;
+        cursor: default;
+      }
+
+      ::ng-deep {
+        .mat-paginator-container,
+        .mat-select-value-text {
+          @include font(12px, $pickledBluewood, 400);
+        }
+      }
+    }
+  }
+}
+
+.popup {
+  background-color: $baseWeak;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgb(41 48 77 / 25%);
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+
+    &-item {
+      cursor: pointer;
+      padding: 6px 26px 6px 24px;
+      transition: background-color $g-anime;
+
+      &.active {
+        cursor: default;
+        span {
+          color: $cadetBlue;
+        }
+      }
+
+      &:not(.active):hover {
+        background-color: $mercury;
+      }
+
+      span {
+        @include font(16px, $darkGray);
+      }
+    }
+  }
+}
+
+@keyframes top-cell-tooltip {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+@keyframes bottom-cell-tooltip {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

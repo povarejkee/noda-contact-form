@@ -1,0 +1,70 @@
+@import "fonts.mixins.scss";
+
+$fonts: (
+  "Poppins-Thin": 100,
+  "Poppins-ExtraLight": 200,
+  "Poppins-Light": 300,
+  "Poppins-Regular": 400,
+  "Poppins-Medium": 500,
+  "Poppins-SemiBold": 600,
+  "Poppins-Bold": 700,
+  "Poppins-ExtraBold": 800,
+  "Poppins-Black": 900,
+);
+
+$font-styles: (
+  "normal": "",
+  "italic": "Italic",
+);
+
+@each $font, $fw in $fonts {
+  @each $style, $style-name in $font-styles {
+    @font-face {
+      font-family: "Poppins";
+      src: url("~/assets/fonts/Poppins/#{$font}#{$style-name}.ttf");
+      font-weight: $fw;
+      font-style: unquote($style);
+    }
+  }
+}
+
+$font-weight: (300, 400, 500, 600, 700);
+@each $fw in $font-weight {
+  .fw-#{$fw} {
+    font-weight: $fw;
+  }
+}
+
+$font-color: (
+  "description": $disabledFont,
+  "primary": $purpleHeart,
+  "light": $whiteLilac,
+);
+@each $class, $color in $font-color {
+  .font-#{$class} {
+    color: $color;
+  }
+}
+
+$font-size: (10, 12, 14, 16, 18, 20, 24, 25, 32, 64);
+@each $fz in $font-size {
+  .fz-#{$fz} {
+    font-size: #{$fz}px;
+  }
+}
+
+.required-notation {
+  &:before {
+    content: "*";
+    color: rgb(243, 92, 92);
+    font-weight: bold;
+  }
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-error {
+  @include font(12px, $errorColor);
+}

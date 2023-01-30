@@ -1,0 +1,73 @@
+@import "fonts.mixins";
+
+@mixin mobile {
+  @media (max-width: 972px) {
+    @content;
+  }
+}
+
+.contact-form {
+  padding: 20px 100px;
+  box-shadow: 0 2px 64px rgba(221, 102, 125, 0.13);
+  border-radius: 20px;
+  max-width: 896px;
+  margin: 0 auto;
+
+  @include mobile {
+    padding: 20px;
+  }
+
+  .header {
+    margin-top: 30px;
+    text-align: center;
+
+    @include font-bold-title(42px);
+
+    @include mobile {
+      max-width: 311px;
+      margin: 0 auto;
+    }
+  }
+
+  .form {
+    max-width: 850px;
+    margin: 20px auto 0;
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 20px;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+    }
+
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+
+      .send-button {
+        width: 214px;
+        height: 52px;
+        background: linear-gradient(180.02deg, #6936d3 0.01%, #f16f6f 99.99%);
+        border-radius: 4px;
+        color: $solitude;
+        transition: opacity 0.3s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+        }
+
+        @include mobile {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

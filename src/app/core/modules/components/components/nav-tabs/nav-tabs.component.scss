@@ -1,0 +1,12 @@
+@import "variables";
+@import "fonts.mixins";
+
+.nav-item {
+  opacity: 1 !important;
+
+  @include font($fw: 400, $color: $darkGray);
+}
+
+.active {
+  @include font($fw: 600, $color: $purpleHeart);
+}

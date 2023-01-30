@@ -1,0 +1,108 @@
+@import "fonts.mixins.scss";
+@import "variables.scss";
+
+.form-control {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  &.invalid-control {
+    ::ng-deep {
+      .mat-radio-outer-circle {
+        border-color: $errorColor;
+      }
+    }
+  }
+
+  .control-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .label {
+    @include font();
+  }
+
+  &.columns {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .radio-group {
+    display: flex;
+
+    &.columns {
+      flex-direction: column;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .radio-button {
+      .radio-button-label {
+        @include font(15px, $fw: 400);
+      }
+
+      .radio-button-description {
+        @include font(12px, $cadetBlue);
+      }
+
+      ::ng-deep {
+        .mat-radio-label {
+          display: flex;
+          align-items: flex-start;
+        }
+      }
+
+      &.mat-radio-disabled {
+        .radio-button-label {
+          color: $cadetBlue;
+        }
+        ::ng-deep {
+          .mat-radio-outer-circle {
+            border-color: $cadetBlue;
+          }
+        }
+      }
+
+      &.mat-radio-checked {
+        &:not(.mat-radio-disabled) {
+          ::ng-deep {
+            .mat-radio-outer-circle {
+              border-color: $purpleHeart;
+            }
+
+            .mat-radio-inner-circle {
+              background-color: $purpleHeart;
+            }
+          }
+        }
+
+        &.mat-radio-disabled {
+          ::ng-deep {
+            .mat-radio-outer-circle {
+              border-color: $cadetBlue;
+            }
+
+            .mat-radio-inner-circle {
+              background-color: $cadetBlue;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .errors {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    &:not(:empty) {
+      margin-top: 8px;
+    }
+  }
+}

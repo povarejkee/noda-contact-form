@@ -1,0 +1,21 @@
+@import "variables.scss";
+
+.status-icon {
+  font-size: 24px;
+
+  &[data-type="success"] {
+    color: $success-color;
+  }
+  &[data-type="warning"] {
+    color: $warning-color;
+  }
+  &[data-type="error"] {
+    color: $error-color;
+  }
+  &[data-type="default"] {
+    color: $cadetBlue;
+  }
+  &[data-type="primary"] {
+    color: $primary-color;
+  }
+}

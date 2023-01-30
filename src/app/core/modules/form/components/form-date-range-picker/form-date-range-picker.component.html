@@ -1,0 +1,54 @@
+<mat-form-field
+  class="form-control form-date-range-picker"
+  [attr.data-mode]="mode"
+  [attr.data-strategy]="errorStrategy"
+  [class.disabled]="disabled || readonly"
+  [class.invalid-control]="formControl?.invalid"
+  [class.errors]="errors?.length | boolean"
+  [appearance]="appearance"
+>
+  <mat-label>{{ label }}</mat-label>
+  <mat-date-range-input
+    [min]="minDate"
+    [max]="maxDate"
+    [disabled]="disabled"
+    [required]="required"
+    [rangePicker]="picker"
+  >
+    <input
+      matStartDate
+      disabled
+      placeholder="Start date"
+      [errorStateMatcher]="errorMatcher"
+      [required]="required"
+      [attr.data-locator]="locator || formControlName"
+      [ngModel]="value?.dateFrom | defaultValue : null"
+      (ngModelChange)="setRange($event, 'dateFrom')"
+    />
+    <input
+      matEndDate
+      disabled
+      placeholder="End date"
+      [attr.data-locator]="locator || formControlName"
+      [ngModel]="value?.dateTo | defaultValue : 'null'"
+      (ngModelChange)="setRange($event, 'dateTo')"
+    />
+  </mat-date-range-input>
+
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+
+  <mat-error *ngFor="let errorMessage of getErrorsMessages()">
+    {{ errorMessage }}
+  </mat-error>
+
+  <ng-icon
+    *ngIf="isShowResetIcon"
+    @ANShowResetIcon
+    matSuffix
+    class="reset-icon"
+    icon="close"
+    (click)="resetValue($event)"
+  >
+  </ng-icon>
+</mat-form-field>

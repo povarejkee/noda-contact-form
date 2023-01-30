@@ -1,0 +1,13 @@
+<nav mat-tab-nav-bar>
+  <a
+    class="nav-item"
+    *ngFor="let opt of options; trackBy: trackByNav"
+    mat-tab-link
+    [disabled]="disabled"
+    [class.active]="isActiveUrl(opt.params.url)"
+    [active]="isActiveUrl(opt.params.url)"
+    (click)="navigateTo(opt.params.url)"
+  >
+    {{ opt.params.title }}
+  </a>
+</nav>

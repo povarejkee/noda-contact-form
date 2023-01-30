@@ -1,0 +1,18 @@
+<a
+  mat-button
+  class="button small"
+  [attr.href]="href | sanitize: 'url'"
+  target="_blank"
+>
+  <ng-picture
+    class="logo"
+    [url]="'icons/' + icon + '.svg'"
+    [alt]="icon + '-logo'"
+  ></ng-picture>
+  <p class="text">
+    <span>{{ text[0] }}:&nbsp;</span>
+    <span class="font-bold">
+      {{ text[1] }}
+    </span>
+  </p>
+</a>

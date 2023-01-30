@@ -1,0 +1,25 @@
+<button
+  mat-button
+  class="button"
+  [ngClass]="getClasses()"
+  [type]="type"
+  [disabled]="disabledBtn"
+  (click)="action()"
+>
+  <ng-icon
+    *ngIf="icon"
+    [icon]="icon"
+    [type]="iconType"
+    class="before-text-icon"
+  >
+  </ng-icon>
+  <span>{{ text }}</span>
+  <ng-content></ng-content>
+  <ng-spinner
+    *ngIf="loading"
+    @ANShowSpinner
+    class="spinner"
+    [class.raised]="appearance | equal : 'raised'"
+    diameter="20"
+  ></ng-spinner>
+</button>

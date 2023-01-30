@@ -1,0 +1,5 @@
+@import "fonts.mixins.scss";
+
+.label {
+  @include font(15px);
+}
