@@ -1,0 +1,40 @@
+@import "fonts.mixins";
+@import "mixins";
+
+:host {
+  @include mobile(850px) {
+    flex-basis: 100%;
+  }
+}
+
+.button {
+  border-radius: 4px;
+  padding: 10px 15px;
+  border: 1px solid $pickledBluewood;
+  color: $pickledBluewood;
+
+  ::ng-deep {
+    .mat-button-wrapper {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  @include mobile(850px) {
+    display: block;
+  }
+
+  .logo {
+    height: 24px;
+    width: 24px;
+  }
+
+  .text {
+    @include font($fz: 16px);
+
+    @include mobile {
+      font-size: 12px;
+      margin: 0 10px;
+    }
+  }
+}

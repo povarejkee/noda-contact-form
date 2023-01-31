@@ -1,0 +1,46 @@
+<div class="instructions">
+  <h6 class="instructions-header">
+    <span class="instructions-header-title">Integration</span>
+    <span class="instructions-header-link">
+      You can
+      <a [href]="links.demo" class="link" target="_blank">try our demo</a>
+    </span>
+  </h6>
+
+  <div class="cards">
+    <div class="cards-item">
+      <ng-picture class="cards-item-picture" [url]="images.api"></ng-picture>
+      <div class="cards-item-header">
+        <span class="cards-item-title">Integration via API</span>
+        <button mat-button class="button raised small" [ngLink]="links.api">
+          Explore
+        </button>
+      </div>
+      <p class="cards-item-description">
+        Server to server integration allows you to fully control payment flow on
+        your back-end site.
+      </p>
+    </div>
+
+    <div class="cards-item">
+      <ng-picture
+        class="cards-item-picture"
+        [url]="images.lightbox"
+      ></ng-picture>
+      <div class="cards-item-header">
+        <span class="cards-item-title">Lightbox</span>
+        <button
+          mat-button
+          class="button raised small"
+          [ngLink]="links.webComponent"
+        >
+          Web-component
+        </button>
+      </div>
+
+      <p class="cards-item-description">
+        Integrate NPM package into your website within minutes.
+      </p>
+    </div>
+  </div>
+</div>

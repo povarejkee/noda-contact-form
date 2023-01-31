@@ -1,0 +1,9 @@
+<button
+  mat-icon-button
+  class="icon-btn"
+  [disabled]="disabled"
+  [attr.data-mode]="mode"
+  (click)="action.emit()"
+>
+  <i class="material-icons icon"><ng-content></ng-content></i>
+</button>

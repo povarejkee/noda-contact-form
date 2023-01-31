@@ -1,0 +1,26 @@
+@import "variables.scss";
+
+.icon-btn {
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+
+  .icon {
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  &:not(:disabled) {
+    &[data-mode="default"] {
+      .icon {
+        color: $pickledBluewood;
+      }
+    }
+    &[data-mode="theme"] {
+      .icon {
+        color: $purpleHeart;
+      }
+    }
+  }
+}

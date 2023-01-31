@@ -1,0 +1,6 @@
+<div class="chips" [ngClass]="getClasses()">
+  <span class="material-icons chips-icon" *ngIf="getIcon() as icon">{{
+    icon
+  }}</span>
+  <span class="chips-text font">{{ text }}</span>
+</div>

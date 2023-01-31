@@ -1,0 +1,62 @@
+<ng-modal
+  class="modal"
+  (close)="close()"
+  [header]="isEnableAddComment | condition: 'Add comment':'Comments'"
+  [hideActions]="true"
+>
+  <ng-container *ngIf="isEnableAddComment">
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+      <ng-form-textarea
+        class="form-control"
+        formControlName="comment"
+        label="Type comment"
+      ></ng-form-textarea>
+    </form>
+  </ng-container>
+
+  <div *ngIf="isEnableAddComment" class="actions">
+    <button
+      mat-button
+      class="button stroke small action-btn"
+      type="button"
+      (click)="close()"
+    >
+      Cancel
+    </button>
+    <ng-button
+      class="submit-btn action-btn"
+      text="Add"
+      size="small"
+      [fullWidth]="true"
+      [loading]="dataFlags.isSendingComment"
+      [disabled]="disabled"
+      (action)="submit()"
+    ></ng-button>
+  </div>
+
+  <ng-container *ngIf="comments$ | async as comments; else loadingTpl">
+    <div *ngIf="comments.length | boolean; else noCommentsTpl" class="comments">
+      <ng-comments-item
+        *ngFor="
+          let comment of comments;
+          let index = index;
+          let last = last;
+          trackBy: trackByOptions
+        "
+        [comment]="comment"
+        [isLast]="last"
+        class="comment-item"
+      ></ng-comments-item>
+    </div>
+
+    <ng-template #noCommentsTpl>
+      <p class="no-comments">No comments yet</p>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #loadingTpl>
+    <div class="spinner-wrapper">
+      <ng-spinner></ng-spinner>
+    </div>
+  </ng-template>
+</ng-modal>

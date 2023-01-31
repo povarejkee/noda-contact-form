@@ -1,0 +1,39 @@
+@import "variables.scss";
+@import "fonts.mixins.scss";
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &.default {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .picture {
+    margin-left: 1;
+    cursor: pointer;
+  }
+
+  .hub {
+    border: 1px solid;
+    box-sizing: border-box;
+    border-radius: 16px;
+    padding: 0 9px;
+    margin: 0 6px;
+    font-size: 15px;
+    cursor: pointer;
+    @include font($fw: 400);
+
+    &[data-theme="white"] {
+      color: $baseWeak;
+      border-color: $baseWeak;
+    }
+
+    &[data-theme="purple"] {
+      color: $purpleHeart;
+      border-color: $purpleHeart;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+<div class="file" [class.full-width]="fullWidth" [attr.data-size]="viewMode">
+  <ng-container *ngIf="url; then downloadTpl; else uploadTpl"></ng-container>
+</div>
+
+<ng-template #downloadTpl>
+  <div class="download" @ANShowLoadBlock [class.full-width]="fullWidth">
+    <div
+      *ngIf="!loading; else loadingTpl"
+      class="download-link"
+      [matTooltip]="getFileNameTooltip()"
+      [ngDownload]="file || url"
+      [ngDownloadType]="file | condition : 'file' : 'url'"
+      [ngDownloadName]="getDownloadFileName()"
+      [ngDownloadDisabled]="isDisabledDownload"
+      [class.disabled]="isDisabledDownload"
+    >
+      <ng-container>
+        <span class="filename">{{ middleTruncateLink() }}</span>
+        <button
+          *ngIf="remove"
+          mat-icon-btn
+          class="button icon medium remove-icon"
+          [disabled]="disabled || loading"
+          (click)="removeFile($event)"
+        >
+          <ng-icon icon="close"></ng-icon>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #uploadTpl>
+  <div
+    *ngIf="upload"
+    @ANShowLoadBlock
+    class="upload"
+    [class.full-width]="fullWidth"
+    [class.disabled]="disabled"
+  >
+    <ng-container *ngIf="!loading; else loadingTpl">
+      <input
+        #fileRef
+        type="file"
+        class="input"
+        [disabled]="disabled"
+        [multiple]="multiple"
+        [accept]="getAccept()"
+        (change)="changeFile($event)"
+      />
+      <button
+        class="upload-btn"
+        [class.full-width]="fullWidth"
+        [disabled]="disabled"
+      >
+        <span class="text">{{ uploadTitle }}</span>
+        <ng-icon class="upload-icon" icon="cloud_upload"></ng-icon>
+      </button>
+    </ng-container>
+  </div>
+  <span *ngIf="!upload" class="empty-text">{{ emptyText }}</span>
+</ng-template>
+
+<ng-template #loadingTpl>
+  <div class="spinner-wrapper">
+    <ng-spinner diameter="20" mode="fixed"></ng-spinner>
+  </div>
+</ng-template>

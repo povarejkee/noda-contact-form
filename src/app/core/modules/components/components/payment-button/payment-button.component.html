@@ -1,0 +1,6 @@
+<div class="button" *ngIf="request" [class.shadow]="shadow">
+  <noda-widget
+    #widgetRef
+    [params]="{ data: request } | toType: 'stringify'"
+  ></noda-widget>
+</div>

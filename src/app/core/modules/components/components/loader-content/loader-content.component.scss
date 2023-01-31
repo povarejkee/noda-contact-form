@@ -1,0 +1,24 @@
+@import "animations";
+@import "variables";
+
+.shadow {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(247, 249, 252, 0.8);
+  animation: fade 0.3s ease-in;
+
+  &[data-mode="small"] {
+    height: 60%;
+  }
+
+  &[data-mode="standard"] {
+    height: 100%;
+  }
+
+  &-spinner {
+    margin: auto;
+  }
+}

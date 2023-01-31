@@ -1,0 +1,12 @@
+@import "../../scss/form.mixins.scss";
+@import "variables.scss";
+
+:host {
+  @include form-field;
+
+  .input {
+    flex-grow: 1;
+    cursor: default;
+    @include control-value;
+  }
+}

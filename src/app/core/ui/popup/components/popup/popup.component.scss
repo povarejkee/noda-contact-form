@@ -1,0 +1,6 @@
+@import "variables.scss";
+
+.main {
+  position: fixed;
+  z-index: $max-z-index - 1;
+}

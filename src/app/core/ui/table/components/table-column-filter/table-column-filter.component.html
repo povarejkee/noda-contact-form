@@ -1,0 +1,47 @@
+<div class="filter">
+  <ng-container [ngSwitch]="filterOption.params.controlType">
+    <ng-form-input
+      *ngSwitchCase="'input-text'"
+      class="form-control"
+      mode="table"
+      [locator]="filterOption.id"
+      [type]="filterOption.params.type"
+      [mask]="filterOption.params?.mask | defaultValue: null"
+      [dropSpecialCharacters]="
+        filterOption.params?.dropSpecialCharacters | defaultValue: false
+      "
+      [allowNegativeNumbers]="
+        filterOption.params?.allowNegativeNumbers | defaultValue: false
+      "
+      [ngModel]="query[filterOption.id]"
+      (ngModelChange)="changeValue($event)"
+    ></ng-form-input>
+    <ng-form-input-number
+      *ngSwitchCase="'input-number'"
+      class="form-control"
+      mode="table"
+      [locator]="filterOption.id"
+      [maskType]="filterOption.params?.maskType | defaultValue: 'default'"
+      [float]="filterOption.params?.float | defaultValue: 0"
+      [ngModel]="query[filterOption.id]"
+      (ngModelChange)="changeValue($event)"
+    ></ng-form-input-number>
+    <ng-form-select
+      *ngSwitchCase="'select'"
+      class="form-control"
+      mode="table"
+      [locator]="filterOption.id"
+      [options]="filterOption.params.options"
+      [ngModel]="query[filterOption.id]"
+      (ngModelChange)="changeValue($event)"
+    ></ng-form-select>
+    <ng-form-date-range-picker
+      *ngSwitchCase="'date-range'"
+      class="form-control"
+      mode="table"
+      [locator]="filterOption.id"
+      [formControl]="dateRangeControl"
+      (ngModelChange)="changeDateRange($event)"
+    ></ng-form-date-range-picker>
+  </ng-container>
+</div>

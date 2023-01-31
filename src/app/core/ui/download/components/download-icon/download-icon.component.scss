@@ -1,0 +1,28 @@
+@import "variables.scss";
+
+.download-icon {
+  color: $purpleHeart;
+  font-size: 25px;
+  user-select: none;
+
+  span {
+    font-size: 35px;
+    transition: color $g-anime;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    cursor: default;
+
+    span {
+      color: $disabledFont;
+    }
+  }
+
+  &:not(.disabled) {
+    cursor: pointer;
+    span:hover {
+      color: lighten($color: $purpleHeart, $amount: 20);
+    }
+  }
+}

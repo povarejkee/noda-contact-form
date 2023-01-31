@@ -1,0 +1,11 @@
+<div
+  class="main"
+  *ngIf="(templateContext | boolean) && isShow"
+  @ANShowFade
+  [attr.data-id]="id"
+  [ngStyle]="getStyles()"
+>
+  <ng-container
+    *ngTemplateOutlet="templateOutlet; context: templateContext"
+  ></ng-container>
+</div>

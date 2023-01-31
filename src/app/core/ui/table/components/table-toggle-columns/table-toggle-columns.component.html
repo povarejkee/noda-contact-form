@@ -1,0 +1,58 @@
+<div class="main">
+  <div class="form-field">
+    <ng-form-input
+      label="Find columns"
+      placeholder="Column title..."
+      [resetValue]="''"
+      [(ngModel)]="searchValue"
+    ></ng-form-input>
+  </div>
+
+  <div class="actions">
+    <button
+      mat-button
+      class="button stroke small actions-btn"
+      [disabled]="actionStatus | equal: 'hide-all'"
+      (click)="all('hide')"
+    >
+      HIDE ALL
+    </button>
+    <button
+      mat-button
+      class="button stroke small actions-btn"
+      [disabled]="actionStatus | equal: 'show-all'"
+      (click)="all('show')"
+    >
+      SHOW ALL
+    </button>
+    <button
+      mat-button
+      class="button stroke small actions-btn"
+      [disabled]="actionStatus | equal: 'show-all'"
+      (click)="reset()"
+    >
+      RESET
+    </button>
+  </div>
+
+  <div class="sliders" [attr.data-search-value]="getEmptyText(searchValue)">
+    <mat-slide-toggle
+      class="sliders-item"
+      color="primary"
+      *ngFor="let column of toggleColumns | filter: 'title':searchValue"
+      [checked]="column.active"
+      (change)="toggle(column)"
+    >
+      <span class="sliders-item-text">{{ column.title }}</span>
+    </mat-slide-toggle>
+  </div>
+
+  <div class="apply">
+    <button mat-button class="button stroke small apply-btn" (click)="close()">
+      Cancel
+    </button>
+    <button mat-button class="button raised small apply-btn" (click)="apply()">
+      Apply
+    </button>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div
+  class="form-control"
+  [class.columns]="direction | equal : 'column'"
+  [class.invalid-control]="isInvalidControl"
+>
+  <span class="label" *ngIf="label">
+    {{ label }}
+    <ng-content select="after-label"></ng-content>
+  </span>
+  <div class="control-box">
+    <mat-radio-group
+      aria-label="Select an option"
+      class="radio-group"
+      [style.gap]="buttonsGap"
+      [attr.data-locator]="locator || formControlName"
+      [class.columns]="direction | equal : 'column'"
+      [labelPosition]="labelPosition"
+      [required]="required"
+      [disabled]="disabled"
+      [ngModel]="value"
+      (ngModelChange)="setValue($event)"
+    >
+      <mat-radio-button
+        class="radio-button"
+        *ngFor="let option of options; trackBy: trackByOption"
+        [checked]="option.value | equal : value"
+        [value]="option.value"
+        [disabled]="isDisabledOption(option)"
+      >
+        <div class="info">
+          <span class="radio-button-label">{{ option.label }}</span>
+          <p
+            class="radio-button-description"
+            *ngIf="option.description | boolean"
+          >
+            {{ option.description }}
+          </p>
+        </div>
+      </mat-radio-button>
+    </mat-radio-group>
+    <ul class="errors" *ngIf="isInvalidControl">
+      <li
+        class="errors-item font-error"
+        *ngFor="let error of getErrorsMessages()"
+      >
+        {{ error }}
+      </li>
+    </ul>
+  </div>
+</div>

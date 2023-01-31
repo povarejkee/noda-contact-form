@@ -1,0 +1,136 @@
+@import "variables.scss";
+@import "fonts.mixins.scss";
+
+@mixin btn($fz: 15px) {
+  display: flex;
+  align-items: center;
+  border: 1px dashed;
+  border-radius: 4px;
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: pointer;
+
+  @include font($fz, $fw: 500);
+}
+
+.file {
+  display: flex;
+  width: 295px;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &[data-size="standard"] {
+    height: 40px;
+  }
+
+  &[data-size="big"] {
+    height: 96px;
+  }
+
+  .upload,
+  .upload-btn,
+  .download,
+  .spinner-wrapper {
+    width: inherit;
+    height: inherit;
+  }
+
+  .upload {
+    position: relative;
+
+    &.disabled {
+      pointer-events: none;
+
+      .input {
+        cursor: default;
+      }
+
+      .upload-btn {
+        color: $disabledFont;
+      }
+    }
+
+    .input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .upload-btn {
+      @include btn;
+
+      justify-content: center;
+      background-color: transparent;
+      color: $purpleHeart;
+      border-color: $purpleHeart;
+
+      .upload-icon {
+        font-size: 30px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .download {
+    .download-link {
+      @include btn(12px);
+
+      padding: 0 16px;
+      height: inherit;
+      gap: 16px;
+      border: 1px dashed $darkGray;
+
+      .filename {
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .remove-icon {
+        margin-left: auto;
+      }
+
+      &.disabled {
+        border-color: $disabledBorder;
+        color: $disabledFont;
+        cursor: default;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.spinner-wrapper {
+  border: 1px dashed $disabledBorder;
+  border-radius: 4px;
+  position: relative;
+}
+
+.empty-text {
+  display: flex;
+  align-items: center;
+}
+
+:host {
+  &[role-disabled="true"] {
+    .upload {
+      pointer-events: none;
+
+      .input {
+        cursor: default;
+      }
+
+      .upload-btn {
+        color: $disabledFont;
+        border-color: $disabledBorder;
+      }
+    }
+  }
+}

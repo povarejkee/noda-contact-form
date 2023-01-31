@@ -1,0 +1,21 @@
+@import "../../scss/form.mixins.scss";
+@import "variables.scss";
+
+:host {
+  @include form-field;
+
+  ::ng-deep {
+    .mat-form-field-infix {
+      min-width: 233px;
+    }
+
+    .mat-date-range-input-container {
+      align-items: initial;
+    }
+  }
+
+  .input {
+    flex-grow: 1;
+    @include control-value;
+  }
+}

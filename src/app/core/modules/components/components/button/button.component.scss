@@ -1,0 +1,47 @@
+@import "variables.scss";
+
+:host {
+  &[role-disabled="true"] {
+    button {
+      pointer-events: none;
+
+      &.full-width {
+        width: 100%;
+      }
+
+      &.raised {
+        color: $baseWeak !important;
+        background-color: #d3c8f1;
+      }
+
+      &.light {
+        background-color: $mercury;
+      }
+
+      &.stroke {
+        border-color: $cadetBlue;
+        color: $disabledFont;
+      }
+
+      &.icon {
+        color: $disabledFont;
+      }
+
+      &.fab,
+      &.mini-fab:disabled {
+        color: $baseWeak !important;
+        background-color: #d3c8f1 !important;
+      }
+    }
+  }
+}
+
+.spinner {
+  margin-left: 10px;
+
+  &.raised {
+    ::ng-deep .mat-spinner circle {
+      stroke: $mercury !important;
+    }
+  }
+}

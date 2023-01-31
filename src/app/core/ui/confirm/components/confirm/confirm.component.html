@@ -1,0 +1,21 @@
+<div class="confirm" @ANShowFade>
+  <div class="content" @ANShowPopup>
+    <p class="message">{{ message }}</p>
+    <div class="actions">
+      <button
+        mat-button
+        class="button stroke small"
+        [disabled]="loading"
+        (click)="answerCb(false)"
+      >
+        Cancel
+      </button>
+      <ng-button
+        text="Confirm"
+        size="small"
+        [loading]="loading"
+        (action)="confrim()"
+      ></ng-button>
+    </div>
+  </div>
+</div>

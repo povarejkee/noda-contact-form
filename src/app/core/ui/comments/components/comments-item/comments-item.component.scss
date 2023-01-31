@@ -1,0 +1,40 @@
+@import "fonts.mixins";
+@import "variables";
+
+header {
+  @include font-description();
+
+  display: flex;
+  align-items: center;
+
+  .date-time {
+    display: flex;
+    align-items: center;
+
+    .time {
+      margin-left: 7px;
+    }
+  }
+
+  .divider {
+    margin: 0 10px;
+  }
+
+  .filename {
+    line-height: 1.2;
+    word-break: break-all;
+  }
+}
+
+.text {
+  @include font($fz: 15px);
+
+  word-break: break-word;
+}
+
+.border-bottom {
+  margin-top: 10px;
+  height: 1px;
+  background-color: $cadetBlue;
+  border: none;
+}

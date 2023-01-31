@@ -1,0 +1,38 @@
+<div class="form-field">
+  <div class="label" *ngIf="label">
+    <span class="label-text">{{ label }}</span>
+  </div>
+
+  <div class="control">
+    <span class="control-value">{{ value }}</span>
+    <button
+      mat-icon-button
+      class="button icon medium color-btn"
+      [disabled]="disabled"
+      matTooltip="Set color"
+      (click)="inputRef.click()"
+    >
+      <input
+        #inputRef
+        [attr.data-locator]="locator || formControlName"
+        class="input"
+        type="color"
+        [ngModel]="value"
+        (ngModelChange)="setValue($event)"
+      />
+      <ng-icon class="control-icon" icon="color_lens"> </ng-icon>
+    </button>
+
+    <button
+      *ngIf="copy"
+      mat-icon-button
+      matTooltip="Copy"
+      class="button icon small copy-btn"
+      type="button"
+      [disabled]="disabled"
+      (click)="copyValue()"
+    >
+      <ng-icon icon="content_copy"></ng-icon>
+    </button>
+  </div>
+</div>
